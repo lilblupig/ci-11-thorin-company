@@ -24,6 +24,11 @@ def contact():
     return render_template("contact.html")
 
 
+@app.route("/careers")
+def careers():
+    return render_template("careers.html")
+
+
 # Use os module to get environment variables, or set a default if not found.
 if __name__ == "__main__":
     app.run(
