@@ -3,11 +3,14 @@ import os
 # Import JSON
 import json
 # Import Flask classes and libraries.
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, flash
+if os.path.exists("env.py"):
+    import env
 
 # Create instance of Flask class and store ina variable called app.
 # __name__ is a built in variable so Flask can find templates and static files.
 app = Flask(__name__)
+app.secret_key = os.environ.get("SECRET_KEY")
 
 
 # Decorator triggers index function below when root directory "/" is accessed.
@@ -38,7 +41,8 @@ def about_member(member_name):
 @app.route("/contact", methods=["GET", "POST"])
 def contact():
     if request.method == "POST":
-        print(request.form)
+        flash("Thanks {}, we have received your message!".format(
+            request.form.get("name")))
     return render_template("contact.html", page_title="Contact")
 
 
